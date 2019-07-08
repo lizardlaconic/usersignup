@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h2 th:text="'Edit Cheese ' + ${cheese.name} + '(id=' + ${cheese.cheeseId}+')'"></h2>
+
+<form method="post" style="max-width:600px;" action="/cheese/edit" th:object="${cheese}">
+  <div class="form-group">
+    <label th:for="name">Name</label>
+    <input class="form-control" id="name-field" th:field="*{name}" type="text" />
+    <span th:errors="*{name}" class="error"></span>
+
+  </div>
+  <div class="form-group">
+    <label th:for="description">Description</label>
+    <input class="form-control" id="desc-field" th:field="*{description}" type="text" />
+    <span th:errors="*{description}" class="error"></span>
+  </div>
+  <div class="form-group">
+    <label th:for="type">Type</label>
+    <select th:field="*{type}">
+      <option th:each="cheeseType : ${cheeseTypes}"
+              th:text="${cheeseType.name}"
+              th:value="${cheeseType}"></option>
+    </select>
+  </div>
+  <input type="hidden" th:field="*{cheeseId}" name="cheeseId" />
+  <input type="submit" value="Edit Cheese" />
+</form>
+
+</body>
+</html>
+
+<!--
+//////////not sure what i missed/////////////////
+////my code was different from his at Jun 13th  class 9 lecture/////////////
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container body-content">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="POST" action="/cheese/edit" style="max-width:600px;">
+  <input type="hidden" th:value="${cheese.cheeseId}" name="cheeseId" />
+  <div class="form-group">
+    <label for="cheeseName">Cheese</label>
+    <input class="form-control" id="cheeseName" type="text" name="name" th:value="${cheese.getName()}" />
+  </div>
+  <div class="form-group">
+    <label for="cheeseDesc">Description</label>
+    <input class="form-control" id="cheeseDesc" type="text" name="description" th:value="${cheese.getDescription()}" />
+  </div>
+  <input type="submit" value="Edit Cheese" />
+</form>
+
+</body>
+</html>-->
